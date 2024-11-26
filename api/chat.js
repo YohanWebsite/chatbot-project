@@ -2,8 +2,13 @@ const fetch = require('node-fetch');
 
 module.exports = async (req, res) => {
   try {
-    const userMessage = req.body.message;
+    const userMessage = req.body.message; // User's latest input
+    const conversationHistory = req.body.history || []; // Previous conversation history
 
+    // Add the user's latest message to the conversation history
+    conversationHistory.push({ role: "user", content: userMessage });
+
+    // Send the conversation history to the OpenAI API
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -12,22 +17,20 @@ module.exports = async (req, res) => {
       },
       body: JSON.stringify({
         model: "gpt-3.5-turbo",
-        messages: [{ role: "user", content: userMessage }]
+        messages: [
+          { role: "system", content: "You are a helpful assistant that remembers context." },
+          ...conversationHistory
+        ]
       })
     });
 
     const data = await response.json();
-
-    // Log response data for debugging
-    console.log("API response:", data);
-
-    if (!response.ok) {
-      console.error("Error:", data); // Log errors if the response isn't OK
-      return res.status(response.status).json({ error: data });
-    }
-
     const botReply = data.choices[0].message.content;
-    res.status(200).json({ reply: botReply });
+
+    // Add the bot's reply to the conversation history
+    conversationHistory.push({ role: "assistant", content: botReply });
+
+    res.status(200).json({ reply: botReply, history: conversationHistory });
 
   } catch (error) {
     console.error("Server error:", error);
