@@ -20,19 +20,32 @@ const possiblePaths = [
 
 // Attempt to load products.json from any of the paths
 function loadProductsFile() {
+  let loaded = false;
   for (const filePath of possiblePaths) {
     try {
       if (fs.existsSync(filePath)) {
         const data = fs.readFileSync(filePath, 'utf-8');
         products = JSON.parse(data);
         console.log("Products successfully loaded from:", filePath);
-        return;
+        loaded = true;
+        break;
       }
     } catch (error) {
       console.error("Error reading products.json from:", filePath, error);
     }
   }
-  console.error("products.json could not be found in any location.");
+
+  // Fallback: Static hardcoded file path
+  if (!loaded) {
+    const staticPath = path.join(__dirname, 'products.json'); // Adjust as needed
+    try {
+      const data = fs.readFileSync(staticPath, 'utf-8');
+      products = JSON.parse(data);
+      console.log("Products successfully loaded from static path:", staticPath);
+    } catch (error) {
+      console.error("Failed to load products.json from static path:", staticPath, error);
+    }
+  }
 }
 
 // Call the function to load the file
