@@ -2,6 +2,18 @@
 
 let conversationHistory = []; // To store chat history
 
+// Function to reset the conversation history
+function resetConversation() {
+  conversationHistory = [];
+  document.getElementById("messages").innerHTML = "";
+}
+
+// Call resetConversation() when the page loads
+window.onload = function() {
+  resetConversation();
+};
+
+// Existing sendMessage function
 async function sendMessage() {
   const userInput = document.getElementById("user-input").value;
   if (!userInput) return;
@@ -13,7 +25,7 @@ async function sendMessage() {
   conversationHistory.push({ role: "user", content: userInput });
 
   try {
-    // Send the user's message and history to the server
+    // Send the conversation history to the server
     const response = await fetch("/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -35,3 +47,17 @@ async function sendMessage() {
     document.getElementById("messages").innerHTML += `<p><strong>Error:</strong> Could not get a response.</p>`;
   }
 }
+
+// Optional: Add a "Restart Chat" button to manually reset the conversation
+function addRestartButton() {
+  const button = document.createElement("button");
+  button.textContent = "Restart Chat";
+  button.onclick = resetConversation;
+  document.body.insertBefore(button, document.getElementById("chat-box"));
+}
+
+// Call addRestartButton() when the page loads
+window.onload = function() {
+  resetConversation();
+  addRestartButton();
+};
