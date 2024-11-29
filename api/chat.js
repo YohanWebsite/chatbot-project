@@ -37,9 +37,10 @@ app.post('/api/chat', async (req, res) => {
         "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`
       },
       body: JSON.stringify({
-        model: "gpt-4-o-mini",
+        model: "gpt-4", // Switch to GPT-4
         messages: conversationHistory
       })
+      
     });
 
     const data = await response.json();
