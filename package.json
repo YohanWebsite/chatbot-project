@@ -1,18 +1,12 @@
 {
-  "name": "website.html",
+  "name": "website",
   "version": "1.0.0",
-  "main": "chat.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "vercel dev"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
-    "body-parser": "^1.20.3",
     "express": "^4.21.1",
-    "node-fetch": "^2.7.0",
-    "pdf-parse": "^1.1.1"
+    "body-parser": "^1.20.3",
+    "node-fetch": "^2.7.0"
   }
 }

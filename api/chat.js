@@ -8,8 +8,6 @@ const path = require('path');
 const app = express();
 app.use(bodyParser.json());
 
-let conversationHistory = []; // Store conversation history
-
 // Import products.json from the root directory
 const products = require(path.join(__dirname, '..', 'products.json'));
 
@@ -17,29 +15,24 @@ app.post('/api/chat', async (req, res) => {
   console.log("Chat endpoint hit!");
 
   try {
-    const userMessage = req.body.message;
-    console.log("Received user message:", userMessage);
+    let conversationHistory = req.body.history || [];
 
-    // Add user message to conversation history
-    conversationHistory.push({ role: "user", content: userMessage });
-
-    // Add the system message at the start of the conversation
-    if (conversationHistory.length === 1) {
+    // Ensure the system message is present
+    if (!conversationHistory.find(msg => msg.role === 'system')) {
       conversationHistory.unshift({
         role: "system",
         content: "You are an AI assistant. Answer questions as accurately as possible. If relevant, recommend a product from the list provided."
       });
     }
 
-    console.log("Current conversation history:", conversationHistory);
+    const userMessage = conversationHistory.find(msg => msg.role === 'user').content;
+    console.log("Received user message:", userMessage);
 
     // Simple product recommendation logic
     let productRecommendation = null;
 
-    // Convert user message to lowercase for case-insensitive matching
     const lowerCaseMessage = userMessage.toLowerCase();
 
-    // Check for keywords in the user message
     if (lowerCaseMessage.includes("dandruff")) {
       productRecommendation = products.find(product =>
         product.name.toLowerCase().includes("dandruff")
@@ -50,8 +43,6 @@ app.post('/api/chat', async (req, res) => {
 
     if (productRecommendation) {
       const recommendationMessage = `Based on your input, I recommend: ${productRecommendation.name}. You can learn more here: ${productRecommendation.link}`;
-      conversationHistory.push({ role: "assistant", content: recommendationMessage });
-      console.log("Product recommendation sent:", recommendationMessage);
       res.status(200).json({ reply: recommendationMessage });
       return;
     }
@@ -66,7 +57,7 @@ app.post('/api/chat', async (req, res) => {
         "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`
       },
       body: JSON.stringify({
-        model: "gpt-4", // Adjust the model as needed
+        model: "gpt-4",
         messages: conversationHistory
       })
     });
@@ -79,9 +70,8 @@ app.post('/api/chat', async (req, res) => {
       throw new Error("Invalid response from OpenAI API");
     }
 
-    // Add assistant's reply to the conversation history
+    // Get assistant's reply
     const assistantMessage = data.choices[0].message.content;
-    conversationHistory.push({ role: "assistant", content: assistantMessage });
 
     res.status(200).json({ reply: assistantMessage });
 
