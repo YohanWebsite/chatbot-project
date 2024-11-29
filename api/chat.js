@@ -1,62 +1,24 @@
+// api/chat.js
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const fetch = require('node-fetch');
-const fs = require('fs');
 const path = require('path');
 
 const app = express();
-const port = 3000;
-
 app.use(bodyParser.json());
 
 let conversationHistory = []; // Store conversation history
-let products = []; // Store product information
 
-// Define possible paths for products.json
-const possiblePaths = [
-  path.join(__dirname, 'products.json'), // In the same folder as chat.js
-  path.join(__dirname, 'api/products.json') // In the api folder
-];
-
-// Attempt to load products.json from any of the paths
-function loadProductsFile() {
-  let loaded = false;
-  for (const filePath of possiblePaths) {
-    try {
-      if (fs.existsSync(filePath)) {
-        const data = fs.readFileSync(filePath, 'utf-8');
-        products = JSON.parse(data);
-        console.log("Products successfully loaded from:", filePath);
-        loaded = true;
-        break;
-      }
-    } catch (error) {
-      console.error("Error reading products.json from:", filePath, error);
-    }
-  }
-
-  // Fallback: Static hardcoded file path
-  if (!loaded) {
-    const staticPath = path.join(__dirname, 'products.json'); // Adjust as needed
-    try {
-      const data = fs.readFileSync(staticPath, 'utf-8');
-      products = JSON.parse(data);
-      console.log("Products successfully loaded from static path:", staticPath);
-    } catch (error) {
-      console.error("Failed to load products.json from static path:", staticPath, error);
-    }
-  }
-}
-
-// Call the function to load the file
-loadProductsFile();
+// Import products.json from the root directory
+const products = require(path.join(__dirname, '..', 'products.json'));
 
 app.post('/api/chat', async (req, res) => {
-  console.log("Chat endpoint hit!"); // Check if the endpoint is being triggered
+  console.log("Chat endpoint hit!");
 
   try {
     const userMessage = req.body.message;
-    console.log("Received user message:", userMessage); // Log user input
+    console.log("Received user message:", userMessage);
 
     // Add user message to conversation history
     conversationHistory.push({ role: "user", content: userMessage });
@@ -69,24 +31,27 @@ app.post('/api/chat', async (req, res) => {
       });
     }
 
-    // Debug: Log the conversation history
     console.log("Current conversation history:", conversationHistory);
 
     // Simple product recommendation logic
     let productRecommendation = null;
-    if (userMessage.toLowerCase().includes("dandruff")) {
+
+    // Convert user message to lowercase for case-insensitive matching
+    const lowerCaseMessage = userMessage.toLowerCase();
+
+    // Check for keywords in the user message
+    if (lowerCaseMessage.includes("dandruff")) {
       productRecommendation = products.find(product =>
         product.name.toLowerCase().includes("dandruff")
       );
     }
 
-    // Debug: Log the product recommendation logic result
     console.log("Product recommendation found:", productRecommendation);
 
     if (productRecommendation) {
       const recommendationMessage = `Based on your input, I recommend: ${productRecommendation.name}. You can learn more here: ${productRecommendation.link}`;
       conversationHistory.push({ role: "assistant", content: recommendationMessage });
-      console.log("Product recommendation sent:", recommendationMessage); // Log the recommendation
+      console.log("Product recommendation sent:", recommendationMessage);
       res.status(200).json({ reply: recommendationMessage });
       return;
     }
@@ -101,14 +66,13 @@ app.post('/api/chat', async (req, res) => {
         "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`
       },
       body: JSON.stringify({
-        model: "gpt-4o", // Model
+        model: "gpt-4", // Adjust the model as needed
         messages: conversationHistory
       })
     });
 
     const data = await response.json();
 
-    // Debug: Log the OpenAI API response
     console.log("OpenAI API response:", data);
 
     if (!data.choices || !data.choices[0]) {
@@ -122,12 +86,10 @@ app.post('/api/chat', async (req, res) => {
     res.status(200).json({ reply: assistantMessage });
 
   } catch (error) {
-    console.error("Error during processing:", error); // Log errors
+    console.error("Error during processing:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
 
-// Start the HTTP server
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-});
+// Export the app for Vercel
+module.exports = app;
