@@ -17,35 +17,31 @@ app.post('/api/chat', async (req, res) => {
   try {
     let conversationHistory = req.body.history || [];
 
+    // Prepare product summaries
+    const productSummaries = products.map(product => {
+      return `${product.name}: ${product.description} Learn more at ${product.link}`;
+    }).join('\n');
+
+    // Updated system message with product information
+    const systemMessageContent = `You are an AI assistant for a hair care company. Your task is to assist customers by answering their questions and recommending products from the list below when relevant.
+
+Products:
+${productSummaries}
+
+Provide helpful and friendly responses.
+
+Note: Do not mention products that are not in the list.`;
+
     // Ensure the system message is present
     if (!conversationHistory.find(msg => msg.role === 'system')) {
       conversationHistory.unshift({
         role: "system",
-        content: "You are an AI assistant. Answer questions as accurately as possible. If relevant, recommend a product from the list provided."
+        content: systemMessageContent
       });
     }
 
-    const userMessage = conversationHistory.find(msg => msg.role === 'user').content;
+    const userMessage = conversationHistory[conversationHistory.length - 1].content;
     console.log("Received user message:", userMessage);
-
-    // Simple product recommendation logic
-    let productRecommendation = null;
-
-    const lowerCaseMessage = userMessage.toLowerCase();
-
-    if (lowerCaseMessage.includes("dandruff")) {
-      productRecommendation = products.find(product =>
-        product.name.toLowerCase().includes("dandruff")
-      );
-    }
-
-    console.log("Product recommendation found:", productRecommendation);
-
-    if (productRecommendation) {
-      const recommendationMessage = `Based on your input, I recommend: ${productRecommendation.name}. You can learn more here: ${productRecommendation.link}`;
-      res.status(200).json({ reply: recommendationMessage });
-      return;
-    }
 
     console.log("Sending conversation history to OpenAI API...");
 
@@ -72,6 +68,9 @@ app.post('/api/chat', async (req, res) => {
 
     // Get assistant's reply
     const assistantMessage = data.choices[0].message.content;
+
+    // Add assistant's reply to conversation history
+    conversationHistory.push({ role: "assistant", content: assistantMessage });
 
     res.status(200).json({ reply: assistantMessage });
 
