@@ -37,7 +37,7 @@ app.post('/api/chat', async (req, res) => {
         "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`
       },
       body: JSON.stringify({
-        model: "gpt-3.5-turbo", // Switch back to Turbo
+        model: "gpt-4o", // 
         messages: conversationHistory
       })
       
