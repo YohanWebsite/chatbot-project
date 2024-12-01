@@ -18,8 +18,10 @@ function addMessage(sender, text, type) {
   const messagesDiv = document.getElementById("messages");
   const messageElement = document.createElement("p");
 
-  // Assign class for styling
-  messageElement.className = type; // "user" or "bot"
+  // Assign class for styling (only "bot" messages get a background)
+  if (type === "bot") {
+    messageElement.className = type; // "bot"
+  }
 
   // Set sender name
   const senderName = type === "bot" ? "Barbera" : "You";
