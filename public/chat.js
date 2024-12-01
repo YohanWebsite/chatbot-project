@@ -9,17 +9,36 @@ function resetConversation() {
 }
 
 // Call resetConversation() when the page loads
-window.onload = function() {
+window.onload = function () {
   resetConversation();
 };
 
+// Function to add messages to the chat
+function addMessage(sender, text, type) {
+  const messagesDiv = document.getElementById("messages");
+  const messageElement = document.createElement("p");
+
+  // Assign class for styling
+  messageElement.className = type; // "user" or "bot"
+
+  // Set sender name
+  const senderName = type === "bot" ? "Barbera" : "You";
+
+  // Create message content
+  messageElement.innerHTML = `<strong>${senderName}:</strong> ${text}`;
+
+  // Append to the messages div
+  messagesDiv.appendChild(messageElement);
+  messagesDiv.scrollTop = messagesDiv.scrollHeight; // Auto-scroll to the latest message
+}
+
 // Existing sendMessage function
 async function sendMessage() {
-  const userInput = document.getElementById("user-input").value;
+  const userInput = document.getElementById("user-input").value.trim();
   if (!userInput) return;
 
   // Display the user's message in the chat
-  document.getElementById("messages").innerHTML += `<p><strong>You:</strong> ${userInput}</p>`;
+  addMessage("You", userInput, "user");
 
   // Add user's message to conversation history
   conversationHistory.push({ role: "user", content: userInput });
@@ -29,13 +48,13 @@ async function sendMessage() {
     const response = await fetch("/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ history: conversationHistory })
+      body: JSON.stringify({ history: conversationHistory }),
     });
 
     const data = await response.json();
 
     // Display the bot's response
-    document.getElementById("messages").innerHTML += `<p><strong>Bot:</strong> ${data.reply}</p>`;
+    addMessage("Barbera", data.reply, "bot");
 
     // Add assistant's reply to conversation history
     conversationHistory.push({ role: "assistant", content: data.reply });
@@ -44,14 +63,11 @@ async function sendMessage() {
     document.getElementById("user-input").value = "";
   } catch (error) {
     console.error("Error sending message:", error);
-    document.getElementById("messages").innerHTML += `<p><strong>Error:</strong> Could not get a response.</p>`;
+    addMessage("Error", "Could not get a response.", "bot");
   }
 }
 
-
-
 // Call addRestartButton() when the page loads
-window.onload = function() {
+window.onload = function () {
   resetConversation();
-  addRestartButton();
 };
