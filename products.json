@@ -1,24 +1,94 @@
 [
-    {
-      "name": "Anti-Dandruff Shampoo",
-      "category": "Care",
-      "description": "The anti-dandruff shampoo is specially developed to prevent oily and dry dandruff. It has a mild cleansing effect on the scalp. With ingredients that stimulate hair growth and help prevent hair loss. Hair and scalp are left healthy and fresh, with visible dandruff reduction.",
-      "usage": [
-        "Use the appropriate amount for your hair type.",
-        "Lather in hair and scalp.",
-        "Leave for 2-3 minutes and gently massage before rinsing.",
-        "Repeat as needed."
-      ],
-      "ingredients": [
-        "Water (Aqua)", "Sodium Laureth Sulfate", "TEA Lauryl Sulfate", "Cocamidopropyl Betaine", 
-        "Sodium Lauroamphoacetate", "PEG-200", "Hydrogenated Glyceryl Palmate", "PEG-7 Glyceryl Cocoate", 
-        "Polyquaternium-10", "Piroctone Olamine", "Butylene Glycol", "Panthenol", "Calcium Pantothenate", 
-        "Niacinamide", "Inositol", "Disodium EDTA", "Citric Acid", "Bis (13-15 Alkoxy)", 
-        "PG Amodimethicone", "Benzyl Alcohol", "Methylchloroisothiazolinone", "Magnesium Nitrate", 
-        "Triethylene Glycol", "Propylene Glycol", "Magnesium Chloride", "Imidazolidinyl Urea", 
-        "Potassium Sorbate", "Fragrance (Parfum)", "Sodium Salicylate", "Hexyl Cinnamal"
-      ],
-      "link": "https://cutters.no/produkter/cutters-antidandruffshampoo-300"
-    }
-  ]
+  {
+    "name": "Anti-Dandruff Shampoo",
+    "price": "119 kr",
+    "description": "The anti-dandruff shampoo is specially developed to prevent oily and dry dandruff. It has a mild cleansing effect on the scalp. With ingredients that stimulate hair growth and help prevent hair loss. Hair and scalp are left healthy and fresh, with visible dandruff reduction.",
+    "usage": [
+      "Use the appropriate amount for your hair type.",
+      "Lather in hair and scalp.",
+      "Leave for 2-3 minutes and gently massage before rinsing.",
+      "Repeat as needed."
+    ],
+    "link": "https://cutters.no/produkter/cutters-antidandruffshampoo-300"
+  },
+  {
+    "name": "Volume Shampoo",
+    "price": "109 kr",
+    "description": "Professional volume shampoo that gently cleanses and softens without weighing down the hair. The shampoo retains the hair's moisture while increasing volume. Offers excellent protection with wheat proteins that strengthen each strand of hair, giving a fuller feeling. Can also be used on colored hair.",
+    "usage": [
+      "Use an appropriate amount for your hair type.",
+      "Lather gently in hair and scalp.",
+      "Leave for 1-2 minutes for maximum effect.",
+      "Repeat as needed."
+    ],
+    "link": "https://cutters.no/produkter/cutters-volumeshampoo-300"
+  },
+
+  {
+    "name": "Moist Conditioner",
+    "price": "109 kr",
+    "description": "Moist Conditioner is an intensive nourishing conditioner for dry hair. It protects hair fibers from damage, prevents breakage during brushing, and handles tangles by adding softness, smoothness, and vitality to the hair. Ingredients like argan oil create shine and softness. Perfect for dry hair in need of moisture and suitable for all ages. For optimal results, use after Moist Shampoo.",
+    "usage": [
+      "Use an appropriate amount for your hair type.",
+      "Apply to hair lengths.",
+      "Massage gently into the hair.",
+      "Rinse thoroughly."
+    ],
+    "link": "https://cutters.no/produkter/cutters-conditioner-300"
+  },
+
+  {
+    "name": "Color Shield Conditioner",
+    "price": "99 kr",
+    "description": "A professional conditioner specially developed for colored hair. It provides intensive care and makes hair easier to comb. The hair is left healthier and shinier. With a unique combination of argan oil, coconut oil, and extracts from the Tiare flower, it strengthens and protects the hair without weighing it down. Suitable for all hair types and ages. Use with the matching shampoo for optimal results.",
+    "usage": [
+      "Use an appropriate amount for your hair type.",
+      "Apply to the lengths of the hair.",
+      "Massage into the lengths.",
+      "Rinse thoroughly."
+    ],
+    "link": "https://cutters.no/produkter/cutters-colorshieldconditioner-300"
+  },
   
+  {
+    "name": "Color Shield Shampoo",
+    "category": "99 kr",
+    "description": "A professional color-preserving shampoo specially developed for colored hair. It protects the hair against color fading during washing while nourishing the hair and making it easier to comb. The result is soft, healthy, and shinier hair with good reflection. With the unique combination of argan oil, coconut oil, and extracts from the Tiare flower, it strengthens and protects the hair without weighing it down. Suitable for all hair types and ages. Use with the matching conditioner for optimal results.",
+    "usage": [
+      "Use an appropriate amount for your hair type.",
+      "Lather into hair and scalp.",
+      "Rinse thoroughly.",
+      "Repeat as needed."
+    ],
+    "link": "https://cutters.no/produkter/cutters-colorshieldshampoo-300"
+  },
+  
+  {
+    "name": "Hair Oil",
+    "price": "139 kr",
+    "description": "Professional hair oil with silk proteins, specially developed to prevent split ends. Protects the hair and leaves it soft and shiny.",
+    "usage": [
+      "Pump 1-2 drops into your hand.",
+      "Apply to the lengths of your hair.",
+      "Distribute the product evenly throughout the hair.",
+      "Use as a finishing product.",
+      "Can be used on wet or dry hair."
+    ],
+    "link": "https://cutters.no/produkter/cutters-hairoil-100"
+  },
+  
+  {
+    "name": "Heat Protection Spray",
+    "price": "129 kr",
+    "description": "Heat-protective spray with a special polymer ingredient that makes hair extra resistant to heat tools up to 220°C. Green tea extract combined with fruit acid ingredients improves the smoothness of the hair surface, leaving it soft and fresh. The product keeps styling in place, strengthens the hair, and protects against breakage and wear. The hair will have a smooth and shiny result with Cutters Heat Protection Spray. The product can also be used without heat tools for a protected, glossy surface.",
+    "usage": [
+      "Shake well before use.",
+      "Spray on damp hair before blow-drying.",
+      "Spray on dry hair before using heat tools."
+    ],
+    "link": "https://cutters.no/produkter/cutters-heat-protection-spray-200"
+  }
+  
+  
+  
+]
