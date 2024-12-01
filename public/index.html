@@ -107,33 +107,6 @@
     <button id="restart-button" onclick="resetConversation()">Restart Chat</button>
   </div>
 
-  <script>
-    function resetConversation() {
-      document.getElementById("messages").innerHTML = "";
-    }
-
-    function sendMessage() {
-      const userInput = document.getElementById("user-input");
-      const message = userInput.value.trim();
-      if (message) {
-        addMessage("You", message, "user");
-        // Simulate bot reply
-        setTimeout(() => {
-          addMessage("Barbera", "Let me assist you with that.", "bot");
-        }, 1000);
-        userInput.value = "";
-      }
-    }
-
-    function addMessage(sender, text, type) {
-      const messagesDiv = document.getElementById("messages");
-      const messageElement = document.createElement("p");
-      messageElement.className = type;
-      messageElement.innerHTML = `<strong>${sender}:</strong> ${text}`;
-      messagesDiv.appendChild(messageElement);
-      messagesDiv.scrollTop = messagesDiv.scrollHeight;
-    }
-  </script>
+  <script src="chat.js"></script>
 </body>
 </html>
-
