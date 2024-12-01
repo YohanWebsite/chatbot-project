@@ -19,11 +19,11 @@ app.post('/api/chat', async (req, res) => {
 
     // Prepare product summaries
     const productSummaries = products.map(product => {
-      return `${product.name}: ${product.description} Learn more at ${product.link}`;
+      return `${product.name} (${product.price}): ${product.description} Learn more at ${product.link}`;
     }).join('\n');
 
     // Updated system message with product information
-    const systemMessageContent = `You are an AI assistant for a hair care company. Your task is to assist customers by answering their questions and recommending products from the list below when relevant.
+    const systemMessageContent = `You are an AI assistant for a hair care company. Your task is to assist customers by answering their questions and recommending products from the list below when relevant. Always provide a link to each product you recommend.
 
 Products:
 ${productSummaries}
@@ -53,7 +53,7 @@ Note: Do not mention products that are not in the list.`;
         "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`
       },
       body: JSON.stringify({
-        model: "gpt-4o",
+        model: "gpt-3.5-turbo",
         messages: conversationHistory
       })
     });
