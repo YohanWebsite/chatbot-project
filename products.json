@@ -87,7 +87,48 @@
       "Spray on dry hair before using heat tools."
     ],
     "link": "https://cutters.no/produkter/cutters-heat-protection-spray-200"
+  },
+  
+  {
+    "name": "Hair Mask",
+    "price": "139 kr",
+    "description": "A professional intensive hair treatment specially developed for dry and damaged hair that needs extra care. The mask contains amino acids and argan oil, which protect the hair fibers from daily wear caused by styling and brushing while counteracting static hair. The result is soft, smooth, and more lustrous hair.",
+    "usage": [
+      "Use an appropriate amount for your hair type.",
+      "Start from the desired area and work towards the lengths.",
+      "Leave for 2-5 minutes and rinse out.",
+      "For an extra boost, leave it on overnight."
+    ],
+    "link": "https://cutters.no/produkter/cutters-hairmask-300"
+  },
+
+  {
+    "name": "Leave-in Conditioner",
+    "price": "139 kr",
+    "description": "Professional leave-in conditioner with argan oil and UV protection that provides intensive care for all hair types. Leaves hair shinier and easier to manage. Helps maintain hair color's brilliance and protects against fading. Does not leave hair greasy after use and has an anti-static effect.",
+    "usage": [
+      "Shake before use.",
+      "Spray lightly on hair.",
+      "Apply extra to the lengths.",
+      "Brush out any tangles.",
+      "Can be used on wet or dry hair."
+    ],
+    "link": "https://cutters.no/produkter/cutters-leaveinconditoner-300"
+  },
+
+  {
+    "name": "HUFS All in One Conditioner",
+    "price": "220 kr",
+    "description": "ALL in ONE Conditioner contains Keraveg-18 and vegan hydrolyzed pea and wheat proteins that rebuild chemically and naturally damaged hair.",
+    "usage": [
+      "Conditioner: Apply to towel-dried hair and rinse thoroughly.",
+      "Treatment: Apply to towel-dried hair and leave for 3-5 minutes for maximum effect before rinsing thoroughly.",
+      "Finish with HUFS ALL in ONE leave-in treatment for best results."
+    ],
+    "link": "https://cutters.no/produkter/hufs-allinoneconditoner-250"
   }
+  
+  
   
   
   
