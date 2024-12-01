@@ -48,13 +48,7 @@ async function sendMessage() {
   }
 }
 
-// Optional: Add a "Restart Chat" button to manually reset the conversation
-function addRestartButton() {
-  const button = document.createElement("button");
-  button.textContent = "Restart Chat";
-  button.onclick = resetConversation;
-  document.body.insertBefore(button, document.getElementById("chat-box"));
-}
+
 
 // Call addRestartButton() when the page loads
 window.onload = function() {
