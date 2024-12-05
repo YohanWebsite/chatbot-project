@@ -55,7 +55,8 @@ Note: Do not mention products that are not in the list.`;
         "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`
       },
       body: JSON.stringify({
-        model: "gpt-4o-mini",
+        model: "gpt-4o",
+
 
         messages: conversationHistory
       })
