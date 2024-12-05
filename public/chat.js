@@ -2,6 +2,12 @@
 
 let conversationHistory = []; // To store chat history
 
+// Function to convert URLs in text to clickable links
+function linkify(text) {
+  const urlPattern = /(https?:\/\/[^\s]+)/g;
+  return text.replace(urlPattern, (url) => `<a href="${url}" target="_blank">${url}</a>`);
+}
+
 // Function to reset the conversation history
 function resetConversation() {
   conversationHistory = [];
@@ -26,10 +32,12 @@ function addMessage(sender, text, type) {
   // Set sender name
   const senderName = type === "bot" ? "Barbera" : "You";
 
-  // Create message content
   if (type === "bot") {
-    // Sanitize the assistant's message
-    const sanitizedText = DOMPurify.sanitize(text);
+    // First, convert URLs to clickable links if any
+    const linkifiedText = linkify(text);
+
+    // Sanitize the assistant's message (which may now contain <a> tags)
+    const sanitizedText = DOMPurify.sanitize(linkifiedText);
     messageElement.innerHTML = `<strong>${senderName}:</strong> ${sanitizedText}`;
   } else {
     // For user messages, escape HTML to prevent XSS
@@ -66,7 +74,7 @@ async function sendMessage() {
     // Display the bot's response
     addMessage("Barbera", data.reply, "bot");
 
-    // Add assistant's reply to the conversation history
+    // Add assistant's reply to conversation history
     conversationHistory.push({ role: "assistant", content: data.reply });
 
     // Clear the input box
