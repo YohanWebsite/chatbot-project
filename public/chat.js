@@ -6,12 +6,14 @@ let conversationHistory = []; // To store chat history
 function resetConversation() {
   conversationHistory = [];
   document.getElementById("messages").innerHTML = "";
-}
 
-// Call resetConversation() when the page loads
-window.onload = function () {
-  resetConversation();
-};
+  // Add bot's initial message
+  const initialMessage = "Hey, how can I help you with your hair care needs today? Tell me about your hair and I'll give advice.";
+  conversationHistory.push({ role: "assistant", content: initialMessage });
+
+  // Display the bot's initial message in the chat
+  addMessage("Barbera", initialMessage, "bot");
+}
 
 // Function to add messages to the chat
 function addMessage(sender, text, type) {
@@ -69,7 +71,7 @@ async function sendMessage() {
   }
 }
 
-// Call addRestartButton() when the page loads
+// Call resetConversation() when the page loads
 window.onload = function () {
   resetConversation();
 };
