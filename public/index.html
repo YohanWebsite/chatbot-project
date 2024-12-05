@@ -59,6 +59,16 @@
       background: #e8f5e9;
     }
 
+    /* Added CSS for styling links */
+    #messages a {
+      color: #0066cc;
+      text-decoration: none;
+    }
+
+    #messages a:hover {
+      text-decoration: underline;
+    }
+
     #user-input {
       flex-grow: 1;
       padding: 10px;
@@ -77,7 +87,7 @@
       padding: 10px;
       font-size: 16px;
       color: #fff;
-      background-color: #2c3e50;
+      background-color: hsl(210, 29%, 24%);
       border: none;
       border-radius: 8px;
       cursor: pointer;
@@ -107,6 +117,8 @@
     <button id="restart-button" onclick="resetConversation()">Restart Chat</button>
   </div>
 
+  <!-- Include DOMPurify before your chat.js script -->
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@2.4.0/dist/purify.min.js"></script>
   <script src="chat.js"></script>
 </body>
 </html>

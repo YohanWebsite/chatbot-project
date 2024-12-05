@@ -17,18 +17,20 @@ app.post('/api/chat', async (req, res) => {
   try {
     let conversationHistory = req.body.history || [];
 
-    // Prepare product summaries
+    // Prepare product summaries with HTML links
     const productSummaries = products.map(product => {
-      return `${product.name} (${product.price}): ${product.description} Learn more at ${product.link}`;
+      return `${product.name} (${product.price}): ${product.description} Learn more at <a href="${product.link}">${product.name}</a>.`;
     }).join('\n');
 
     // Updated system message with product information
-    const systemMessageContent = `You are an AI assistant for a hair care company. Your task is to assist customers by answering their questions and recommending products from the list below when relevant. Always provide a link to each product you recommend. Do not answer irrelevant questions.
+    const systemMessageContent = `You are an AI assistant for a hair care company. Your task is to assist customers by answering their questions and recommending products from the list below when relevant. Always provide a link to each product you recommend using HTML anchor tags. Do not answer irrelevant questions.
 
 Products:
 ${productSummaries}
 
 Provide helpful and friendly responses.
+
+Important: When mentioning products, include links using HTML anchor tags. For example: <a href="https://example.com">Product Name</a>.
 
 Note: Do not mention products that are not in the list.`;
 

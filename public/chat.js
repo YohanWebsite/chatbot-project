@@ -20,16 +20,22 @@ function addMessage(sender, text, type) {
   const messagesDiv = document.getElementById("messages");
   const messageElement = document.createElement("p");
 
-  // Assign class for styling (only "bot" messages get a background)
-  if (type === "bot") {
-    messageElement.className = type; // "bot"
-  }
+  // Assign class for styling (both "bot" and "user" messages)
+  messageElement.className = type; // "bot" or "user"
 
   // Set sender name
   const senderName = type === "bot" ? "Barbera" : "You";
 
   // Create message content
-  messageElement.innerHTML = `<strong>${senderName}:</strong> ${text}`;
+  if (type === "bot") {
+    // Sanitize the assistant's message
+    const sanitizedText = DOMPurify.sanitize(text);
+    messageElement.innerHTML = `<strong>${senderName}:</strong> ${sanitizedText}`;
+  } else {
+    // For user messages, escape HTML to prevent XSS
+    const escapedText = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    messageElement.innerHTML = `<strong>${senderName}:</strong> ${escapedText}`;
+  }
 
   // Append to the messages div
   messagesDiv.appendChild(messageElement);
