@@ -66,7 +66,7 @@ async function sendMessage() {
     // Display the bot's response
     addMessage("Barbera", data.reply, "bot");
 
-    // Add assistant's reply to conversation history
+    // Add assistant's reply to the conversation history
     conversationHistory.push({ role: "assistant", content: data.reply });
 
     // Clear the input box
@@ -76,6 +76,14 @@ async function sendMessage() {
     addMessage("Error", "Could not get a response.", "bot");
   }
 }
+
+// Add event listener for 'Enter' key press on the input field
+document.getElementById("user-input").addEventListener("keydown", function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault(); // Prevent default action
+    sendMessage();
+  }
+});
 
 // Call resetConversation() when the page loads
 window.onload = function () {
