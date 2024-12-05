@@ -28,7 +28,7 @@ app.post('/api/chat', async (req, res) => {
 Products:
 ${productSummaries}
 
-Provide helpful and friendly responses.
+Provide helpful and friendly responses. If you recommend a conditioner, try to also suggest a shampoo, and vice versa.
 
 Important: When mentioning products, include links using HTML anchor tags. For example: <a href="https://example.com">Product Name</a>.
 
