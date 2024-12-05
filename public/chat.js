@@ -2,12 +2,6 @@
 
 let conversationHistory = []; // To store chat history
 
-// Function to convert URLs in text to clickable links
-function linkify(text) {
-  const urlPattern = /(https?:\/\/[^\s]+)/g;
-  return text.replace(urlPattern, (url) => `<a href="${url}" target="_blank">${url}</a>`);
-}
-
 // Function to reset the conversation history
 function resetConversation() {
   conversationHistory = [];
@@ -26,18 +20,16 @@ function addMessage(sender, text, type) {
   const messagesDiv = document.getElementById("messages");
   const messageElement = document.createElement("p");
 
-  // Assign class for styling (both "bot" and "user")
+  // Assign class for styling (both "bot" and "user" messages)
   messageElement.className = type; // "bot" or "user"
 
   // Set sender name
   const senderName = type === "bot" ? "Barbera" : "You";
 
+  // Create message content
   if (type === "bot") {
-    // First, convert URLs to clickable links if any
-    const linkifiedText = linkify(text);
-
-    // Sanitize the assistant's message (which may now contain <a> tags)
-    const sanitizedText = DOMPurify.sanitize(linkifiedText);
+    // Sanitize the assistant's message
+    const sanitizedText = DOMPurify.sanitize(text);
     messageElement.innerHTML = `<strong>${senderName}:</strong> ${sanitizedText}`;
   } else {
     // For user messages, escape HTML to prevent XSS
@@ -84,14 +76,6 @@ async function sendMessage() {
     addMessage("Error", "Could not get a response.", "bot");
   }
 }
-
-// Add event listener for 'Enter' key press on the input field
-document.getElementById("user-input").addEventListener("keydown", function(event) {
-  if (event.key === "Enter") {
-    event.preventDefault(); // Prevent default action
-    sendMessage();
-  }
-});
 
 // Call resetConversation() when the page loads
 window.onload = function () {
