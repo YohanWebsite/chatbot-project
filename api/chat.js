@@ -23,7 +23,7 @@ app.post('/api/chat', async (req, res) => {
     }).join('\n');
 
     // Updated system message with product information
-    const systemMessageContent = `You are an AI assistant for a hair care company. Your task is to assist customers by answering their questions and recommending products from the list below when relevant. Always provide a link to each product you recommend.
+    const systemMessageContent = `You are an AI assistant for a hair care company. Your task is to assist customers by answering their questions and recommending products from the list below when relevant. Always provide a link to each product you recommend. Do not answer irrelevant questions.
 
 Products:
 ${productSummaries}
