@@ -33,6 +33,7 @@ app.post('/api/chat', async (req, res) => {
     4. Be concise, friendly, and professional. Avoid repeating product names in a response.
     5. Only recommend products from the list.
     6. Politely decline irrelevant questions.
+    7. Ensure recommendations match the user's hair type or concern. 
     
     Products:
     ${productSummaries}
