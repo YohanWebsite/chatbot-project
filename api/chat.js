@@ -19,7 +19,7 @@ app.post('/api/chat', async (req, res) => {
 
     // Prepare product summaries with HTML links
     const productSummaries = products.map(product => {
-      return `${product.name}: ${product.description} <a href="${product.link}" target="_blank">${product.name}</a>.`;
+      return `${product.name} (${product.price}): ${product.description} <a href="${product.link}" target="_blank">${product.name}</a>.`;
     }).join('\n');
     
     const systemMessageContent = 
